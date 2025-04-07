@@ -1,21 +1,18 @@
 CC = gcc
-CFLAGS = -Wall -std=c99 -I./src  # Ajoutez -I pour que le compilateur trouve les fichiers .h
-RM = del /Q  # Commande pour supprimer les fichiers sur Windows
-SRC = src/carte.c src/joueur.c src/jeu.c main.c  # Liste des fichiers source
-OBJ = $(SRC:.c=.o)  # Transformation des fichiers .c en .o
-EXEC = cardyard  # Nom de l'exécutable
+CFLAGS = -Wall -std=c99 -I./src  # Pour que le compilateur trouve les fichiers d'en-tête
+# Pour un usage multi-plateforme, utilisez rm (disponible sous Git Bash)
+RM = rm -f
+SRC = src/carte.c src/joueur.c src/jeu.c main.c
+OBJ = $(SRC:.c=.o)
+EXEC = cardyard
 
-# Règle par défaut
 all: $(EXEC)
 
-# Lien des fichiers objets pour créer l'exécutable
 $(EXEC): $(OBJ)
 	$(CC) $(OBJ) -o $(EXEC)
 
-# Règle de compilation des fichiers .c en .o
-.c.o:
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Nettoyage des fichiers objets et de l'exécutable
 clean:
 	-$(RM) $(OBJ) $(EXEC)

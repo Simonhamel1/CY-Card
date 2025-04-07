@@ -6,12 +6,6 @@
 #include "jeu.h"
 
 int main() {
-    // Active la locale pour l'UTF-8
-    setlocale(LC_ALL, "");
-#ifdef _WIN32
-    // Configure la sortie console en UTF-8
-    SetConsoleOutputCP(CP_UTF8);
-#endif
     
     int nb_joueurs;
     printf("Bienvenue dans CardYard !\n");

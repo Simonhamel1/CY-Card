@@ -6,7 +6,7 @@
 #include "carte.h"
 
 static void shuffle(Carte* deck, int n) {
-    for(int i = n - 1; i > 0; i--){
+    for (int i = n - 1; i > 0; i--) {
         int j = rand() % (i + 1);
         Carte temp = deck[i];
         deck[i] = deck[j];
@@ -35,19 +35,19 @@ void initialiser_pioche(Jeu* jeu) {
     int total = 5 + 10 + 15 + (12 * 10); // 150 cartes
     Carte* deck = malloc(total * sizeof(Carte));
     int index = 0;
-    // Valeur -2: 5 cartes, couleur "Noir"
+    // Valeur -2 : 5 cartes, couleur "Noir"
     for (int i = 0; i < 5; i++) {
         deck[index++] = creer_carte(-2, "Noir");
     }
-    // Valeur -1: 10 cartes, couleur "Rouge"
+    // Valeur -1 : 10 cartes, couleur "Rouge"
     for (int i = 0; i < 10; i++) {
         deck[index++] = creer_carte(-1, "Rouge");
     }
-    // Valeur 0: 15 cartes, couleur "Vert"
+    // Valeur 0 : 15 cartes, couleur "Vert"
     for (int i = 0; i < 15; i++) {
         deck[index++] = creer_carte(0, "Vert");
     }
-    // Valeurs 1 à 12: 10 cartes chacune, couleur "Bleu"
+    // Valeurs 1 à 12 : 10 cartes chacune, couleur "Bleu"
     for (int v = 1; v <= 12; v++) {
         for (int i = 0; i < 10; i++) {
             deck[index++] = creer_carte(v, "Bleu");
@@ -60,7 +60,7 @@ void initialiser_pioche(Jeu* jeu) {
     for (int i = 0; i < jeu->nb_joueurs; i++) {
         for (int j = 0; j < MAX_CARTES; j++) {
             ajouter_carte(&jeu->joueurs[i], deck[0]);
-            // Supprimer la première carte du deck en décalant les éléments
+            // Décalage du deck pour retirer la carte distribuée
             for (int k = 0; k < total - 1; k++) {
                 deck[k] = deck[k+1];
             }
@@ -98,11 +98,11 @@ void jouer_tour(Jeu* jeu) {
         printf("Entrez le numéro du joueur dont vous voulez prendre la défausse (1-%d): ", jeu->nb_joueurs);
         scanf("%d", &jnum);
         jnum--;
-        if(jnum < 0 || jnum >= jeu->nb_joueurs) {
+        if (jnum < 0 || jnum >= jeu->nb_joueurs) {
             printf("Numéro de joueur invalide.\n");
             return;
         }
-        if(jeu->joueurs[jnum].nb_defausse <= 0) {
+        if (jeu->joueurs[jnum].nb_defausse <= 0) {
             printf("La défausse de ce joueur est vide.\n");
             return;
         }
@@ -114,7 +114,7 @@ void jouer_tour(Jeu* jeu) {
         return;
     }
     
-    printf("Carte tirée: ");
+    printf("Carte tirée:\n");
     afficher_carte(drawn);
     
     printf("Choisissez l'indice de la carte de votre main à échanger (1-%d): ", joueur->nb_cartes);
@@ -125,7 +125,7 @@ void jouer_tour(Jeu* jeu) {
         return;
     }
     indice--;
-    // La carte actuellement en main va à la défausse (elle devient visible)
+    // La carte actuellement en main va à la défausse (et devient visible)
     Carte old = joueur->cartes[indice];
     old.visible = 1;
     joueur->defausse[joueur->nb_defausse++] = old;
@@ -133,7 +133,7 @@ void jouer_tour(Jeu* jeu) {
     drawn.visible = 0;
     joueur->cartes[indice] = drawn;
     
-    // Vérification : si toutes les cartes sont révélées, la partie se termine
+    // Fin de partie si toutes les cartes sont révélées
     int all_visible = 1;
     for (int i = 0; i < joueur->nb_cartes; i++) {
         if (joueur->cartes[i].visible == 0) {
@@ -154,7 +154,6 @@ void jouer_tour(Jeu* jeu) {
 void fin_de_partie(Jeu jeu) {
     printf("\n--- Fin de Partie ---\n");
     for (int i = 0; i < jeu.nb_joueurs; i++) {
-        // Révélation de toutes les cartes
         for (int j = 0; j < jeu.joueurs[i].nb_cartes; j++) {
             jeu.joueurs[i].cartes[j].visible = 1;
         }

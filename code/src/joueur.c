@@ -15,19 +15,19 @@ Joueur creer_joueur(const char* nom) {
 }
 
 void ajouter_carte(Joueur* joueur, Carte carte) {
-    if(joueur->nb_cartes < MAX_CARTES) {
+    if (joueur->nb_cartes < MAX_CARTES) {
         joueur->cartes[joueur->nb_cartes++] = carte;
     }
 }
 
-// Affichage des cartes côte à côte avec rendu en ASCII art
+// Affichage des cartes côte à côte en ASCII art
 void afficher_cartes(Joueur joueur) {
     printf("%s, vos cartes:\n", joueur.nom);
     for (int line = 0; line < 4; line++) {
         for (int i = 0; i < joueur.nb_cartes; i++) {
             char buffer[50];
-            if(joueur.cartes[i].visible) {
-                switch(line) {
+            if (joueur.cartes[i].visible) {
+                switch (line) {
                     case 0:
                         sprintf(buffer, "┌───────┐ ");
                         break;
@@ -42,7 +42,7 @@ void afficher_cartes(Joueur joueur) {
                         break;
                 }
             } else {
-                switch(line) {
+                switch (line) {
                     case 0:
                         sprintf(buffer, "┌───────┐ ");
                         break;
