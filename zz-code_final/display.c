@@ -242,3 +242,37 @@ void afficher_instructions() {
     
     pauseWithMessage("Appuyez sur Entrée pour revenir au menu principal...");
 }
+
+void afficher_erreur(const char *message) {
+    printf("%sErreur: %s%s\n", ROUGE, message, RESET);
+}
+
+void afficher_info(const char *message) {
+    printf("%sInfo: %s%s\n", BLEU, message, RESET);
+}
+
+void nettoyer_ecran() {
+    system("clear || cls"); // Clear screen for Unix/Linux or Windows
+}
+
+afficher_tour_joueur(GameState *game) {
+    printf("C'est le tour de %s!\n", game->playerNames[game->currentPlayerIndex]);
+    printf("Sélectionnez une action:\n");
+    printf("1. Piocher une carte de la pioche centrale\n");
+    printf("2. Prendre une carte d'une défausse personnelle\n");
+    printf("3. Échanger une carte avec un autre joueur\n");
+    printf("4. Terminer le tour\n");
+}
+
+
+void afficher_resultats(GameState *game, int sortedIndices[], int scores[]) {
+    printf("╔══════════════════════════════════════════════╗\n");
+    printf("║                RÉSULTATS                    ║\n");
+    printf("╚══════════════════════════════════════════════╝\n\n");
+    
+    for (int i = 0; i < game->numPlayers; i++) {
+        printf("%s: %d points\n", game->playerNames[sortedIndices[i]], scores[sortedIndices[i]]);
+    }
+    
+    printf("\nLe gagnant est %s avec %d points!\n", game->playerNames[sortedIndices[0]], scores[sortedIndices[0]]);
+}
