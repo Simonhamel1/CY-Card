@@ -1,7 +1,4 @@
-/**
- * @file save.c
- * @brief Implémentation des fonctions de sauvegarde et chargement
- */
+
 
  #include <stdio.h>
  #include <stdlib.h>

@@ -17,8 +17,8 @@ SAVE_DIR = saves
 all: directories $(TARGET)
 
 # Créer les répertoires nécessaires
-directories:
-	mkdir -p $(SAVE_DIR)
+# directories:
+# 	mkdir -p $(SAVE_DIR)
 
 # Lier le programme
 $(TARGET): $(OBJS)

@@ -1,9 +1,4 @@
-/**
- * @file main.c
- * @brief Point d'entrée du programme Card Yard
- */
-
- #include <stdio.h>
+#include <stdio.h>
  #include <stdlib.h>
  #include <stdbool.h>
  #include <time.h>
@@ -15,11 +10,8 @@
  #include "utils.h"
  #include "save.h"
  
- /**
-  * @brief Point d'entrée principal du programme
-  * @return Code de sortie
-  */
- int main() {
+
+int main() {
      // Pour Windows, décommenter cette ligne pour activer les couleurs ANSI
      // system("color");
      
