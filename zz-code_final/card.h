@@ -1,27 +1,24 @@
- #ifndef CARD_H
- #define CARD_H
- 
- #include "game.h"
- 
- // Maximum de cartes dans le jeu
- #define MAX_CARDS 104
- 
- void initializeDefaultCardDeck(int cards[], int *size);
- 
+#ifndef CARD_H
+#define CARD_H
 
- bool initializeCardDeckFromFile(int cards[], int *size, const char *filename);
- 
+#include "game.h"
+#include "player.h"
 
- bool initializeCardDeckFromUserInput(int cards[], int *size);
+// Maximum de cartes dans le jeu
+#define MAX_CARDS 104
 
- void shuffleDeck(int cards[], int size);
+void initializeDefaultCardDeck(int cards[], int *size);
 
- void dealCards(GameState *game);
- 
+bool initializeCardDeckFromFile(int cards[], int *size, const char *filename);
 
- bool allCardsVisible(GameState *game, int playerIndex);
- 
+bool initializeCardDeckFromUserInput(int cards[], int *size);
 
- int initializeCardsPerPlayer(GameState *game);
- 
- #endif // CARD_H
+void shuffleDeck(int cards[], int size);
+
+void dealCards(GameState *game);
+
+bool allCardsVisible(GameState *game, int playerIndex);
+
+int initializeCardsPerPlayer(GameState *game);
+
+#endif // CARD_H

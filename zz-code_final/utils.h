@@ -3,11 +3,13 @@
  
 #include <stdbool.h>
 
+/* Input/Output Functions */
 int readInt(int min, int max, const char *promptMessage, const char *errorMessage);
- 
 char* readString(char *buffer, int size, const char *promptMessage);
 void pauseWithMessage(const char *message);
-int getRandomNumber(int min, int max);
+
+/* Random Number Generation */
 void initRandom();
+int getRandomNumber(int min, int max);
  
 #endif // UTILS_H

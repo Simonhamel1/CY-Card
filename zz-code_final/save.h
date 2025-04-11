@@ -1,15 +1,10 @@
+#ifndef SAVE_H
+#define SAVE_H
 
+#include "game.h"
 
- #ifndef SAVE_H
- #define SAVE_H
- 
- #include "game.h"
- 
- bool saveGame(GameState *game, const char *filename);
- 
+bool saveGame(GameState *game, const char *filename);
+bool loadGame(GameState *game, const char *filename);
+char* listSavedGames();
 
- bool loadGame(GameState *game, const char *filename);
-
- char* listSavedGames();
- 
- #endif // SAVE_H
+#endif // SAVE_H
