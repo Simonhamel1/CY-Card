@@ -7,6 +7,7 @@
  #define DISPLAY_H
  
  #include "game.h"
+ #include "utils.h"
  
  // Définition des codes de couleur ANSI
  #define RESET       "\033[0m"
@@ -26,7 +27,7 @@
  #define B_MAGENTA   "\033[1;35m"
  #define B_CYAN      "\033[1;36m"
  #define B_BLANC     "\033[1;37m"
- 
+
  /**
   * @brief Obtient la couleur appropriée selon la valeur de la carte
   * @param valeur Valeur de la carte

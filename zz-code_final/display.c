@@ -255,7 +255,7 @@ void nettoyer_ecran() {
     system("clear || cls"); // Clear screen for Unix/Linux or Windows
 }
 
-afficher_tour_joueur(GameState *game) {
+void afficher_tour_joueur(GameState *game) {
     printf("C'est le tour de %s!\n", game->playerNames[game->currentPlayerIndex]);
     printf("Sélectionnez une action:\n");
     printf("1. Piocher une carte de la pioche centrale\n");
