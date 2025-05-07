@@ -170,18 +170,16 @@ cards[j] = temp;
 }
 
 void dealCards(GameState *game) {
-    for (int i = 0; i < game->numPlayers; i++) {
-        for (int j = 0; j < game->cardsPerPlayer; j++) {
-            if (game->centralDeckSize > 0) {
-                // Deal actual cards from the central deck
-                game->playerCards[i][j] = game->centralDeck[--game->centralDeckSize];
-                
-            }
-        }
-        // Initialize with no visible cards
-        game->visibleCards[i] = 0;
-        game->personalDiscards[i] = EMPTY_CARD;
+for (int i = 0; i < game->numPlayers; i++) {
+for (int j = 0; j < game->cardsPerPlayer; j++) {
+    if (game->centralDeckSize > 0) {
+        game->playerCards[i][j] = EMPTY_CARD; // Face cachée
+        
     }
+}
+game->visibleCards[i] = 0;
+game->personalDiscards[i] = EMPTY_CARD;
+}
 }
 
 bool allCardsVisible(GameState *game, int playerIndex) {

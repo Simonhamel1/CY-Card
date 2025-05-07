@@ -125,13 +125,9 @@ while (!game->gameOver) {
         continue;
     }
     
-    // Vérifier si la partie est terminée
-    if (isGameOver(game)) {
-        game->gameOver = true;
-    } else {
-        // Passer au joueur suivant
-        nextPlayer(game);
-    }
+    // Passer au joueur suivant
+    nextPlayer(game);
+    
 }
 
 // La partie est terminée, calculer et afficher les scores
@@ -234,6 +230,22 @@ for (int j = 0; j < game->cardsPerPlayer; j++) {
     if (game->playerCards[i][j] != EMPTY_CARD) {
         scores[i] += game->playerCards[i][j];
     }
+    if (game->playerCards[i][j] == EMPTY_CARD) {
+        // Pénalité pour les cartes non retournées: on pioche et ajoute la valeur
+        int penaltyCard = drawFromCentralDeck(game);
+        if (penaltyCard != EMPTY_CARD) {
+            scores[i] += penaltyCard;
+            char buffer[100];
+            sprintf(buffer, "Pénalité pour joueur %d: +%d points", i+1, penaltyCard);
+            afficher_info(buffer);
+        } else {
+            // Si la pioche est vide, ajouter une pénalité fixe
+            scores[i] += 10;
+            char buffer[100];
+            sprintf(buffer, "Pénalité pour joueur %d: +10 points (pioche vide)", i+1);
+            afficher_info(buffer);
+        }
+    }
 }
 }
 }
@@ -250,7 +262,7 @@ afficher_resultats(game, sortedIndices, scores);
 }
 
 int displayMainMenu() {
-nettoyer_ecran();
+// nettoyer_ecran();
 printf("╔═════════════════════════════════╗\n");
 printf("║           CARD YARD             ║\n");
 printf("╠═════════════════════════════════╣\n");

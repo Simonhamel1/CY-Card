@@ -65,8 +65,10 @@ bool playerTurn(GameState *game) {
         // Échanger avec une carte du joueur
         int replacedCard = exchangePlayerCard(game, cardChoice, drawnCard);
         
-        // Mettre la carte remplacée dans la défausse
-        placeInPersonalDiscard(game, game->currentPlayerIndex, replacedCard);
+        // Mettre la carte remplacée dans la défausse si elle n'est pas vide
+        if (replacedCard != EMPTY_CARD) {
+            placeInPersonalDiscard(game, game->currentPlayerIndex, replacedCard);
+        }
     }
     
     return true;
