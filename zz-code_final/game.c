@@ -79,15 +79,22 @@ for (int i = 0; i < game->numPlayers; i++) {
 // Initialiser la carte actuelle de la pioche centrale
 game->currentCentralCard = EMPTY_CARD;
 
-return true;
-}
 
-bool startGame(GameState *game) {
 // Distribuer les cartes aux joueurs
 dealCards(game);
 
 // Piocher la première carte pour la pioche centrale
 game->currentCentralCard = drawFromCentralDeck(game);
+if (game->currentCentralCard == EMPTY_CARD) {
+    afficher_erreur("Échec de la pioche de la carte centrale.");
+    return false;
+}
+
+return true;
+}
+
+bool startGame(GameState *game) {
+
 
 // Boucle principale du jeu
 while (!game->gameOver) {

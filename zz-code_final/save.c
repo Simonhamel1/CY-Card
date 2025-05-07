@@ -108,7 +108,7 @@
      
      // Lire les cartes du jeu
      for (int i = 0; i < MAX_PLAYERS; i++) {
-         fread(game->playerCards[i], sizeof(int), MAX_CARDS_PER_PLAYER, file);
+        fread(game->playerCards[i], sizeof(int), MAX_CARDS_PER_PLAYER, file);
      }
      
      // Lire les défausses personnelles
