@@ -11,7 +11,7 @@
 #include "card.h"
 #include "game.h"
 #include "display.h"
-#include "utils.h"
+#include "utils.h" 
 
 void initializeDefaultCardDeck(int cards[], int *size) {
 // Cartes par défaut
@@ -30,69 +30,104 @@ for (int i = 0; i < defaultSize; i++) {
 }
 }
 
-/**
-* @brief Initialise le jeu de cartes à partir d'un fichier
-* 
-* @param cards Tableau où stocker les cartes
-* @param size Pointeur vers le nombre de cartes
-* @param filename Nom du fichier contenant les valeurs
-* @return true si l'initialisation a réussi, false sinon
-*/
+bool proposer_de_changer_les_valeurs() {
+    printf("Voulez-vous changer les valeurs des cartes ? (O/N)\n");
+    char response[3];
+    readString(response, sizeof(response), "Réponse: ");
+    if (response[0] != 'O' && response[0] != 'o') {
+        printf("Aucune modification effectuée.\n");
+        return false;
+    }
+    return true;
+}
+
+bool changeCardValuesToFile(const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        afficher_erreur("Impossible d'ouvrir le fichier pour sauvegarder les valeurs des cartes.");
+        return false;
+    }
+
+    printf("Configuration des valeurs des cartes à sauvegarder\n");
+    printf("==============================================\n");
+    printf("Vous pouvez définir les valeurs entre -50 et 99\n\n");
+
+    int minValue = readInt(-50, 99, "Valeur minimale: ", "Valeur invalide. Entrez un nombre entre -50 et 99.");
+    int maxValue = readInt(minValue, 99, "Valeur maximale: ", "Valeur invalide. Entrez un nombre supérieur ou égal à la valeur minimale.");
+
+    int totalCards = 0;
+
+    for (int value = minValue; value <= maxValue; value++) {
+        char prompt[100];
+        snprintf(prompt, sizeof(prompt), "Nombre de cartes pour la valeur %d (0-20): ", value);
+        
+        int count = readInt(0, 20, prompt, "Nombre invalide. Entrez un nombre entre 0 et 20.");
+        
+        if (count > 0) {
+            fprintf(file, "%d %d\n", value, count);
+            totalCards += count;
+        }
+    }
+
+    fclose(file);
+
+    if (totalCards < 20) {
+        afficher_erreur("Pas assez de cartes. Il faut au moins 20 cartes pour jouer.");
+        return false;
+    }
+
+    printf("Sauvegarde réussie: %d cartes enregistrées dans %s\n", totalCards, filename);
+    return true;
+}
 
 #define MAX_PATH_LENGTH 256
 #define SAVE_DIRECTORY "saves"
 bool initializeCardDeckFromFile(int cards[], int *size, const char *filename) {
+    // Construire le chemin complet
+    char fullPath[MAX_PATH_LENGTH];
+    snprintf(fullPath, sizeof(fullPath), "%s/%s", SAVE_DIRECTORY, filename);
 
-// Construire le chemin complet
-char fullPath[MAX_PATH_LENGTH];
-snprintf(fullPath, sizeof(fullPath), "%s/%s", SAVE_DIRECTORY, filename);
-
-// Afficher un message pour le débogage
-printf("Tentative d'ouverture du fichier: %s\n", fullPath);
-
-// Ouvrir le fichier en mode lecture
-FILE *file = fopen(fullPath, "r");
-if (file == NULL) {
-    afficher_erreur("Impossible d'ouvrir le fichier pour charger les valeurs des cartes.");
-    return false;
-}
-
-int value, count;
-int index = 0;
-
-// Format du fichier: valeur quantité (ex: 5 4 pour quatre cartes de valeur 5)
-while (fscanf(file, "%d %d", &value, &count) == 2) {
-    // Vérifier que la valeur est valide
-    if (value < -50 || value > 99) {
-        afficher_erreur("Valeur de carte invalide dans le fichier.");
-        fclose(file);
+    // Ouvrir le fichier en mode lecture
+    FILE *file = fopen(fullPath, "r");
+    if (file == NULL) {
+        afficher_erreur("Impossible d'ouvrir le fichier pour charger les valeurs des cartes.");
         return false;
     }
-    
-    // Ajouter les cartes au deck
-    for (int i = 0; i < count; i++) {
-        if (index >= MAX_CARDS) {
-            afficher_erreur("Trop de cartes dans le fichier. Maximum: MAX_CARDS");
+
+    int value, count;
+    int index = 0;
+
+    // Format du fichier: valeur quantité (ex: 5 4 pour quatre cartes de valeur 5)
+    while (fscanf(file, "%d %d", &value, &count) == 2) {
+        // Vérifier que la valeur est valide
+        if (value < -50 || value > 99) {
+            afficher_erreur("Valeur de carte invalide dans le fichier.");
             fclose(file);
             return false;
         }
-        cards[index++] = value;
+        
+        // Ajouter les cartes au deck
+        for (int i = 0; i < count; i++) {
+            if (index >= MAX_CARDS) {
+                afficher_erreur("Trop de cartes dans le fichier. Impossible de toutes les stocker.");
+                fclose(file);
+                return false;
+            }
+            cards[index++] = value;
+        }
     }
-}
 
-// Vérifier qu'on a lu au moins une carte
-if (index == 0) {
-    afficher_erreur("Aucune carte n'a été lue depuis le fichier.");
     fclose(file);
-    return false;
-}
 
-*size = index;
-fclose(file);
+    // Vérifier qu'on a assez de cartes
+    if (index < 20) {
+        afficher_erreur("Pas assez de cartes dans le fichier. Il faut au moins 20 cartes pour jouer.");
+        return false;
+    }
 
-// Afficher un message de succès
-printf("Chargement réussi: %d cartes lues\n", index);
-return true;
+    *size = index;
+    printf("Chargement réussi: %d cartes lues depuis %s\n", index, filename);
+    return true;
 }
 
 bool initializeCardDeckFromUserInput(int cards[], int *size) {

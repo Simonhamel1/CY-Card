@@ -44,6 +44,13 @@ switch (valueMode) {
         initializeDefaultCardDeck(game->centralDeck, &game->centralDeckSize);
         break;
     case VALUE_FILE:
+        // proposer de changer les valeurs a l'interieur du fichier
+        if (proposer_de_changer_les_valeurs()) {
+            if (!changeCardValuesToFile("saves/VALUE_CARD.txt")) {
+                afficher_erreur("Impossible de changer les valeurs des cartes dans le fichier.");
+                return false;
+            }
+        }
         if (!initializeCardDeckFromFile(game->centralDeck, &game->centralDeckSize, "VALUE_CARD.txt")) {
             afficher_erreur("Impossible de charger les valeurs des cartes depuis le fichier.");
             return false;
