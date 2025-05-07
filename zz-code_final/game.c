@@ -141,7 +141,7 @@ int sortedIndices[MAX_PLAYERS];
 calculateScores(game, scores);
 sortPlayersByScore(game, sortedIndices, scores);
 
-nettoyer_ecran();
+printf("\n\n");
 afficher_resultats(game, sortedIndices, scores);
 
 pauseWithMessage("Appuyez sur Entrée pour revenir au menu principal...");

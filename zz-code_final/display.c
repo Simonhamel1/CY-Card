@@ -139,7 +139,7 @@
  
  void afficher_numeros_joueurs(int debut, int fin, GameState *game) {
      for (int j = debut; j <= fin; j++) {
-         printf("        ~%s~            ", game->playerNames[j]);
+        printf("         ~%s~             ", game->playerNames[j]);
      }
      printf("\n\n");
  }
@@ -267,7 +267,7 @@ void afficher_tour_joueur(GameState *game) {
 
 void afficher_resultats(GameState *game, int sortedIndices[], int scores[]) {
     printf("╔══════════════════════════════════════════════╗\n");
-    printf("║                RÉSULTATS                    ║\n");
+    printf("║                RÉSULTATS                     ║\n");
     printf("╚══════════════════════════════════════════════╝\n\n");
     
     for (int i = 0; i < game->numPlayers; i++) {
