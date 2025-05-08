@@ -8,6 +8,21 @@
 
 const char* obtenir_couleur(int valeur) {
     if (valeur == EMPTY_CARD) return BLANC; // Cartes non retournées en blanc
+    else if (valeur == -20) return NOIR;
+    else if (valeur == -19) return B_NOIR;
+    else if (valeur == -18) return ROUGE;
+    else if (valeur == -17) return B_ROUGE;
+    else if (valeur == -16) return VERT;
+    else if (valeur == -15) return B_VERT;
+    else if (valeur == -14) return JAUNE;
+    else if (valeur == -13) return B_JAUNE;
+    else if (valeur == -12) return BLEU;
+    else if (valeur == -11) return B_BLEU;
+    else if (valeur == -10) return MAGENTA;
+    else if (valeur == -9) return B_MAGENTA;
+    else if (valeur == -8) return CYAN;
+    else if (valeur == -7) return B_CYAN;
+    else if (valeur == -6) return BLANC;
     else if (valeur == -5) return ROUGE;
     else if (valeur == -4) return B_ROUGE;
     else if (valeur == -3) return VERT;
@@ -29,6 +44,11 @@ const char* obtenir_couleur(int valeur) {
     else if (valeur == 13) return MAGENTA;
     else if (valeur == 14) return B_MAGENTA;
     else if (valeur == 15) return CYAN;
+    else if (valeur == 16) return B_CYAN;
+    else if (valeur == 17) return ROUGE;
+    else if (valeur == 18) return B_ROUGE;
+    else if (valeur == 19) return VERT;
+    else if (valeur == 20) return B_VERT;
     else return BLANC; // Valeur par défaut
 }
 
