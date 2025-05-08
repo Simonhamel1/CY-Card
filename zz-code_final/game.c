@@ -264,7 +264,7 @@ afficher_resultats(game, sortedIndices, scores);
 }
 
 int displayMainMenu() {
-// nettoyer_ecran();
+nettoyer_ecran();
 printf("╔═════════════════════════════════╗\n");
 printf("║           CARD YARD             ║\n");
 printf("╠═════════════════════════════════╣\n");

@@ -62,12 +62,14 @@ char* readString(char *buffer, int size, const char *promptMessage) {
 
 // Met le programme en pause jusqu'à ce que l'utilisateur appuie sur Entrée
 void pauseWithMessage(const char *message) {
-    printf("%s", message);
-    getchar();  // Consommer le caractère de nouvelle ligne
+    printf("\n%s\n", message);
     
-    // Si le buffer d'entrée n'est pas vide, vider le
+    // Vider le buffer d'entrée
     int c;
     while ((c = getchar()) != '\n' && c != EOF) { }
+    
+    // Attendre que l'utilisateur appuie sur Entrée
+    getchar();
 }
 
 // Génère un nombre aléatoire entre min et max inclus
