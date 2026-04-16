@@ -98,6 +98,9 @@ Exemple:
 - Les cartes à valeur négative sont particulièrement intéressantes à garder
 - Parfois, il peut être stratégique de ne pas retourner toutes vos cartes immédiatement
 
+## Demo
+Pour voir une démonstration du jeu, vous pouvez consulter la vidéo suivante: [Demo Card Yard](https://www.youtube.com/watch?v=example)
+
 ## Auteur
 
 Simon hamelin
